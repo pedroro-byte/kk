@@ -158,15 +158,6 @@
     letter-spacing:1px;font-weight:700;padding:5px 10px;border-radius:999px;
   }
   .card-photo{width:100%;height:100%;object-fit:cover;border-radius:8px;}
-  .card-carousel{position:relative;width:100%;height:100%;}
-  .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);width:34px;height:34px;border:none;border-radius:50%;background:rgba(0,0,0,.45);color:var(--chalk);font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;opacity:.95;}
-  .carousel-nav.prev{left:12px;}
-  .carousel-nav.next{right:12px;}
-  .carousel-nav:hover{background:rgba(0,0,0,.65);}
-  .carousel-dots{display:flex;justify-content:center;gap:6px;padding:12px 0;margin:0;}
-  .carousel-dot{width:10px;height:10px;border-radius:50%;background:rgba(243,240,230,.25);border:none;cursor:pointer;transition:transform .15s, background .15s;}
-  .carousel-dot.active{background:var(--floodlight);transform:scale(1.1);}
-  .carousel-dot:hover{background:rgba(242,193,78,.85);}
   .card-body{padding:16px 18px 20px;display:flex;flex-direction:column;gap:12px;flex:1;}
   .card-body h3{font-family:'Barlow Semi Condensed';font-weight:700;font-size:17px;text-transform:none;letter-spacing:0;line-height:1.25;}
   .price-row{display:flex;align-items:baseline;justify-content:space-between;}
@@ -3708,7 +3699,6 @@
   const ligas = ["Todas", ...new Set(PRODUTOS.map(p=>p.liga))];
   let filtro = "Todas";
   const selecionados = {}; // id -> tamanho
-  const selectedImage = {}; // id -> índice atual da imagem
 
   function render(){
     chipsWrap.innerHTML = ligas.map(l =>
@@ -3718,49 +3708,20 @@
     const lista = PRODUTOS.filter(p => filtro==="Todas" || p.liga===filtro);
     grid.innerHTML = lista.map(p => {
       const tamSel = selecionados[p.id] || p.tamanhos[0];
-      const rawImages = Array.isArray(p.imagens) && p.imagens.length ? p.imagens : [p.imagem || `images/${p.id}.jpg`];
-      const grouped = rawImages.filter(Boolean).reduce((acc, url) => {
-        const group = url.replace(/-[0-9]+-0\.webp$/, '');
-        if (!acc[group]) acc[group] = [];
-        acc[group].push(url);
-        return acc;
-      }, {});
-      const imagens = Object.values(grouped).map(group =>
-        group.sort((a, b) => {
-          const getSize = u => {
-            const m = u.match(/-([0-9]+)-0\.webp$/);
-            return m ? Number(m[1]) : 0;
-          };
-          return getSize(b) - getSize(a);
-        })[0]
-      ).slice(0, 2);
-      if (imagens.length === 1 && p.imagem && !imagens.includes(p.imagem)) {
-        imagens.push(p.imagem);
-      }
-      const imageIndex = selectedImage[p.id] ?? 0;
-      const safeIndex = Math.min(imageIndex, imagens.length - 1);
-      const imageUrl = imagens[safeIndex];
+      const imagens = Array.isArray(p.imagens) && p.imagens.length ? p.imagens.filter(Boolean) : [p.imagem || `images/${p.id}.jpg`];
+      const imageUrl = imagens[0] || `images/${p.id}.jpg`;
       const sizeChips = p.tamanhos.map(t =>
         `<button class="size-chip ${t===tamSel?'selected':''}" data-id="${p.id}" data-tam="${t}">${t}</button>`
       ).join('');
-      const dots = imagens.length > 1 ? `<div class="carousel-dots">${imagens.map((_, idx) =>
-        `<button class="carousel-dot ${idx===safeIndex?'active':''}" data-id="${p.id}" data-action="select" data-index="${idx}" aria-label="Ver imagem ${idx+1}"></button>`
-      ).join('')}</div>` : '';
-      const navs = imagens.length > 1 ? `
-            <button class="carousel-nav prev" data-id="${p.id}" data-action="prev" aria-label="Imagem anterior">‹</button>
-            <button class="carousel-nav next" data-id="${p.id}" data-action="next" aria-label="Próxima imagem">›</button>
-          ` : '';
+      const dots = '';
+      const navs = '';
       const msg = `Olá! Quero comprar a ${p.nome}, tamanho ${tamSel}.`;
       return `
         <div class="card">
           <div class="card-art" style="background:linear-gradient(160deg, ${p.cor1}22, transparent 60%)">
             <span class="card-league">${p.liga}</span>
-            <div class="card-carousel">
-              <img class="card-photo" src="${imageUrl}" alt="${p.nome}"
-                   onerror="this.replaceWith(Object.assign(document.createElement('div'),{innerHTML:jerseySVG('${p.cor1}','${p.cor2}')}).firstChild)">
-              ${navs}
-            </div>
-            ${dots}
+            <img class="card-photo" src="${imageUrl}" alt="${p.nome}"
+                 onerror="this.replaceWith(Object.assign(document.createElement('div'),{innerHTML:jerseySVG('${p.cor1}','${p.cor2}')}).firstChild)">
           </div>
           <div class="card-body">
             <h3>${p.nome}</h3>
@@ -3792,22 +3753,11 @@
 
     const navBtn = e.target.closest('.carousel-nav');
     if(navBtn){
-      const id = navBtn.dataset.id;
-      const product = PRODUTOS.find(p=>p.id===id);
-      if(!product) return;
-      const count = (Array.isArray(product.imagens) && product.imagens.length) ? product.imagens.length : 1;
-      const current = selectedImage[id] ?? 0;
-      selectedImage[id] = navBtn.dataset.action==='prev'
-        ? (current - 1 + count) % count
-        : (current + 1) % count;
-      render();
       return;
     }
 
     const dotBtn = e.target.closest('.carousel-dot');
     if(dotBtn){
-      selectedImage[dotBtn.dataset.id] = Number(dotBtn.dataset.index);
-      render();
       return;
     }
   });
