@@ -332,15 +332,15 @@
   const INSTAGRAM_URL   = "https://instagram.com/fael.imports"; // seu @ do Instagram
 
   const PRODUTOS = [
-    { id:"cor3",  nome:"Camisa Corinthians III 2025/26", liga:"Brasileirão", preco:149.90, tamanhos:["P","M","G","GG","2GG"], cor1:"#1C1C1C", cor2:"#F3F0E6" },
-    { id:"cortr", nome:"Camisa Corinthians Treino Roxa 2025/26", liga:"Brasileirão", preco:149.90, tamanhos:["P","M","G","GG","2XL","3XL"], cor1:"#5B2A86", cor2:"#F3F0E6" },
-    { id:"bra98", nome:"Camisa Brasil I 1998 Retrô", liga:"Seleções", preco:139.90, tamanhos:["P","M","G","GG","2GG"], cor1:"#F2C11B", cor2:"#0B4EA2" },
-    { id:"cru3",  nome:"Camisa Cruzeiro III 2025/26", liga:"Brasileirão", preco:149.90, tamanhos:["P","M","G","GG","2GG"], cor1:"#0B3B8C", cor2:"#F3F0E6" },
-    { id:"liv1",  nome:"Camisa Liverpool I 2025/26", liga:"Premier League", preco:149.90, tamanhos:["P","M","G","GG","2XL"], cor1:"#C8102E", cor2:"#F3F0E6" },
-    { id:"arg1",  nome:"Camisa Argentina I 2026", liga:"Seleções", preco:169.90, tamanhos:["P","M","G","GG","2GG"], cor1:"#75AADB", cor2:"#F3F0E6" },
-    { id:"rma1",  nome:"Camisa Real Madrid I 2025/26", liga:"La Liga", preco:159.90, tamanhos:["P","M","G","GG","2XL","3GG"], cor1:"#F3F0E6", cor2:"#F2C14E" },
-    { id:"ita1",  nome:"Camisa Itália I 2025/26", liga:"Seleções", preco:159.90, tamanhos:["P","M","G","GG","2XL","3XL"], cor1:"#0B4EA2", cor2:"#F3F0E6" },
-    { id:"mex1",  nome:"Camisa México I 2026", liga:"Seleções", preco:159.90, tamanhos:["P","M","G","GG","2GG"], cor1:"#0C7A3D", cor2:"#F3F0E6" },
+    { id:"cor3",  nome:"Camisa Corinthians III 2025/26", liga:"Brasileirão", preco:149.90, tamanhos:["P","M","G","GG","2GG"], cor1:"#1C1C1C", cor2:"#F3F0E6", imagem:"https://acdn-us.mitiendanube.com/stores/005/109/368/products/img_3086-d5a0e3e981eeef53d817658286561184-480-0.webp" },
+    { id:"cortr", nome:"Camisa Corinthians Treino Roxa 2025/26", liga:"Brasileirão", preco:149.90, tamanhos:["P","M","G","GG","2XL","3XL"], cor1:"#5B2A86", cor2:"#F3F0E6", imagem:"https://acdn-us.mitiendanube.com/stores/005/109/368/products/medium-8d75b385cc2a02ceaa17612475623333-480-0.webp" },
+    { id:"bra98", nome:"Camisa Brasil I 1998 Retrô", liga:"Seleções", preco:139.90, tamanhos:["P","M","G","GG","2GG"], cor1:"#F2C11B", cor2:"#0B4EA2", imagem:"https://acdn-us.mitiendanube.com/stores/005/109/368/products/logo-f745164459d22771c917788906002864-480-0.webp" },
+    { id:"cru3",  nome:"Camisa Cruzeiro III 2025/26", liga:"Brasileirão", preco:149.90, tamanhos:["P","M","G","GG","2GG"], cor1:"#0B3B8C", cor2:"#F3F0E6", imagem:"https://acdn-us.mitiendanube.com/stores/005/109/368/products/img_3084-a0b50c41a89f1f7fcb17658285902083-480-0.webp" },
+    { id:"liv1",  nome:"Camisa Liverpool I 2025/26", liga:"Premier League", preco:149.90, tamanhos:["P","M","G","GG","2XL"], cor1:"#C8102E", cor2:"#F3F0E6", imagem:"https://acdn-us.mitiendanube.com/stores/005/109/368/products/medium-d83d8f71835cdd8f7417612418949204-480-0.webp" },
+    { id:"arg1",  nome:"Camisa Argentina I 2026", liga:"Seleções", preco:169.90, tamanhos:["P","M","G","GG","2GG"], cor1:"#75AADB", cor2:"#F3F0E6", imagem:"https://acdn-us.mitiendanube.com/stores/005/109/368/products/img_5411-e32a6ab6fc0acaa91c17724569721947-480-0.webp" },
+    { id:"rma1",  nome:"Camisa Real Madrid I 2025/26", liga:"La Liga", preco:159.90, tamanhos:["P","M","G","GG","2XL","3GG"], cor1:"#F3F0E6", cor2:"#F2C14E", imagem:"https://acdn-us.mitiendanube.com/stores/005/109/368/products/medium-edb6c5d703e678fa2717612481631873-480-0.webp" },
+    { id:"ita1",  nome:"Camisa Itália I 2025/26", liga:"Seleções", preco:159.90, tamanhos:["P","M","G","GG","2XL","3XL"], cor1:"#0B4EA2", cor2:"#F3F0E6", imagem:"https://acdn-us.mitiendanube.com/stores/005/109/368/products/img_4137-3f84b51f625b06659a17684363909572-480-0.webp" },
+    { id:"mex1",  nome:"Camisa México I 2026", liga:"Seleções", preco:159.90, tamanhos:["P","M","G","GG","2GG"], cor1:"#0C7A3D", cor2:"#F3F0E6", imagem:"https://acdn-us.mitiendanube.com/stores/005/109/368/products/img_4259-dcfe17ca4a138324d617689398472178-480-0.webp" },
   ];
 
   function jerseySVG(c1, c2){
@@ -377,7 +377,7 @@
         <div class="card">
           <div class="card-art" style="background:linear-gradient(160deg, ${p.cor1}22, transparent 60%)">
             <span class="card-league">${p.liga}</span>
-            <img class="card-photo" src="images/${p.id}.jpg" alt="${p.nome}"
+            <img class="card-photo" src="${p.imagem || `images/${p.id}.jpg`}" alt="${p.nome}"
                  onerror="this.replaceWith(Object.assign(document.createElement('div'),{innerHTML:jerseySVG('${p.cor1}','${p.cor2}')}).firstChild)">
           </div>
           <div class="card-body">
