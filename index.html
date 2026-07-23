@@ -3683,6 +3683,24 @@
   }
 ];
 
+  // Recalcula preços seguindo a fórmula: preço fornecedor x2 -> ceil -> -0.10
+  // Aplica apenas para produtos cujo nome contenha 'Camisa' ou 'Blusa' (case-insensitive)
+  (function ajustarPrecos(){
+    let atualizados = 0;
+    PRODUTOS.forEach(p=>{
+      try{
+        const nome = (p.nome||'').toLowerCase();
+        if(nome.includes('camisa') || nome.includes('blusa')){
+          const v = Number(p.preco) || 0;
+          const calculado = Math.ceil(v * 2) - 0.10;
+          p.preco = Number(calculado.toFixed(2));
+          atualizados++;
+        }
+      }catch(e){/* ignore */}
+    });
+    console.info('Preços ajustados:', atualizados);
+  })();
+
   function jerseySVG(c1, c2){
     return `<svg width="120" height="120" viewBox="0 0 120 120">
       <path d="M40 8 L48 2 L72 2 L80 8 L104 22 L96 42 L82 34 L82 108 L38 108 L38 34 L24 42 L16 22 Z" fill="${c1}" stroke="rgba(0,0,0,.25)" stroke-width="1"/>
