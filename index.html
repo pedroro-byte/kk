@@ -3718,7 +3718,7 @@
     const lista = PRODUTOS.filter(p => filtro==="Todas" || p.liga===filtro);
     grid.innerHTML = lista.map(p => {
       const tamSel = selecionados[p.id] || p.tamanhos[0];
-      const imagens = Array.isArray(p.imagens) && p.imagens.length ? p.imagens : [p.imagem || `images/${p.id}.jpg`];
+      const imagens = Array.isArray(p.imagens) && p.imagens.length ? p.imagens.slice(0, 2) : [p.imagem || `images/${p.id}.jpg`];
       const imageIndex = selectedImage[p.id] ?? 0;
       const safeIndex = Math.min(imageIndex, imagens.length - 1);
       const imageUrl = imagens[safeIndex];
