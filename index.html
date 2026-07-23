@@ -3719,11 +3719,24 @@
     grid.innerHTML = lista.map(p => {
       const tamSel = selecionados[p.id] || p.tamanhos[0];
       const rawImages = Array.isArray(p.imagens) && p.imagens.length ? p.imagens : [p.imagem || `images/${p.id}.jpg`];
-      const uniqueImages = [...new Set(rawImages.filter(Boolean))];
-      if (uniqueImages.length === 1 && p.imagem && uniqueImages[0] !== p.imagem) {
-        uniqueImages.push(p.imagem);
+      const grouped = rawImages.filter(Boolean).reduce((acc, url) => {
+        const group = url.replace(/-[0-9]+-0\.webp$/, '');
+        if (!acc[group]) acc[group] = [];
+        acc[group].push(url);
+        return acc;
+      }, {});
+      const imagens = Object.values(grouped).map(group =>
+        group.sort((a, b) => {
+          const getSize = u => {
+            const m = u.match(/-([0-9]+)-0\.webp$/);
+            return m ? Number(m[1]) : 0;
+          };
+          return getSize(b) - getSize(a);
+        })[0]
+      ).slice(0, 2);
+      if (imagens.length === 1 && p.imagem && !imagens.includes(p.imagem)) {
+        imagens.push(p.imagem);
       }
-      const imagens = uniqueImages.slice(0, 2);
       const imageIndex = selectedImage[p.id] ?? 0;
       const safeIndex = Math.min(imageIndex, imagens.length - 1);
       const imageUrl = imagens[safeIndex];
