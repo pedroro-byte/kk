@@ -9,13 +9,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Semi+Condensed:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --pitch-dark:#0E2B1D;
-    --pitch-mid:#153823;
-    --pitch-line:rgba(243,240,230,.13);
-    --chalk:#F3F0E6;
-    --chalk-dim:rgba(243,240,230,.62);
-    --floodlight:#F2C14E;
-    --card-red:#D64B3D;
+    --pitch-dark:#000000;
+    --pitch-mid:#111111;
+    --pitch-line:rgba(255,255,255,.12);
+    --chalk:#F7F7F7;
+    --chalk-dim:rgba(255,255,255,.68);
+    --floodlight:#FFFFFF;
+    --card-red:#BBBBBB;
     --radius:14px;
   }
   *{box-sizing:border-box;}
@@ -43,12 +43,12 @@
 
   .pitch-bg{
     background-image:
-      repeating-linear-gradient(100deg, rgba(255,255,255,.018) 0 80px, transparent 80px 160px);
+      repeating-linear-gradient(100deg, rgba(255,255,255,.02) 0 80px, transparent 80px 160px);
   }
 
   header{
     position:sticky;top:0;z-index:50;
-    background:rgba(14,43,29,.92);
+    background:rgba(0,0,0,.92);
     backdrop-filter:blur(8px);
     border-bottom:1px solid var(--pitch-line);
   }
@@ -72,7 +72,7 @@
   .burger{display:none;background:none;border:none;color:var(--chalk);font-size:26px;cursor:pointer;}
 
   .ticker{
-    background:var(--floodlight);color:var(--pitch-dark);
+    background:rgba(255,255,255,.08);color:var(--chalk);
     overflow:hidden;white-space:nowrap;font-family:'Anton';
     font-size:14px;letter-spacing:2px;
   }
@@ -83,7 +83,7 @@
   .hero{position:relative;padding:88px 24px 70px;overflow:hidden;}
   .hero::before{
     content:"";position:absolute;inset:-20% -10% auto -10%;height:420px;
-    background:radial-gradient(ellipse at 50% 0%, rgba(242,193,78,.16), transparent 65%);
+    background:radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.12), transparent 65%);
     pointer-events:none;
   }
   .hero-inner{max-width:1180px;margin:0 auto;position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;}
@@ -114,7 +114,7 @@
     background:var(--pitch-mid);border:1px solid var(--pitch-line);
     border-radius:24px;padding:34px 24px;text-align:center;
   }
-  .hero-badge .jersey-num{font-family:'Anton';font-size:120px;line-height:.9;color:var(--floodlight);text-shadow:0 0 40px rgba(242,193,78,.35);}
+  .hero-badge .jersey-num{font-family:'Anton';font-size:120px;line-height:.9;color:var(--floodlight);text-shadow:0 0 20px rgba(255,255,255,.2);}
   .hero-badge .jersey-cap{font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--chalk-dim);margin-top:6px;}
   .hero-badge .jersey-line{border-top:1px dashed var(--pitch-line);margin:18px 0;}
   .hero-badge .jersey-stat{display:flex;justify-content:space-between;font-size:14px;color:var(--chalk-dim);padding:4px 0;}
@@ -147,17 +147,17 @@
     border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;
     transition:transform .18s, border-color .18s;
   }
-  .card:hover{transform:translateY(-4px);border-color:rgba(242,193,78,.4);}
+  .card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.22);}
   .card-art{
     aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;
     padding:22px;position:relative;
   }
   .card-league{
-    position:absolute;top:12px;left:12px;background:rgba(14,43,29,.75);
+    position:absolute;top:12px;left:12px;background:rgba(255,255,255,.08);
     color:var(--floodlight);font-size:11px;text-transform:uppercase;
     letter-spacing:1px;font-weight:700;padding:5px 10px;border-radius:999px;
   }
-  .card-photo{width:100%;height:100%;object-fit:cover;border-radius:8px;}
+  .card-photo{width:100%;height:100%;object-fit:cover;border-radius:8px;filter:grayscale(100%) contrast(1.05);background:#111;}
   .card-body{padding:16px 18px 20px;display:flex;flex-direction:column;gap:12px;flex:1;}
   .card-body h3{font-family:'Barlow Semi Condensed';font-weight:700;font-size:17px;text-transform:none;letter-spacing:0;line-height:1.25;}
   .price-row{display:flex;align-items:baseline;justify-content:space-between;}
@@ -172,7 +172,7 @@
   .size-chip.selected{background:var(--floodlight);color:var(--pitch-dark);border-color:var(--floodlight);font-weight:700;}
   .card-cta{
     margin-top:auto;display:flex;align-items:center;justify-content:center;gap:8px;
-    background:#25D366;color:#0E2B1D;font-weight:700;text-decoration:none;
+    background:var(--floodlight);color:var(--pitch-dark);font-weight:700;text-decoration:none;
     padding:12px;border-radius:9px;font-size:14px;text-transform:uppercase;letter-spacing:.4px;
     border:none;cursor:pointer;transition:filter .15s;
   }
@@ -202,7 +202,7 @@
 
   .whatsapp-float{
     position:fixed;bottom:22px;right:22px;z-index:60;
-    width:58px;height:58px;border-radius:50%;background:#25D366;
+    width:58px;height:58px;border-radius:50%;background:var(--floodlight);
     display:flex;align-items:center;justify-content:center;
     box-shadow:0 6px 18px rgba(0,0,0,.35);text-decoration:none;
   }
@@ -3709,7 +3709,13 @@
     grid.innerHTML = lista.map(p => {
       const tamSel = selecionados[p.id] || p.tamanhos[0];
       const imagens = Array.isArray(p.imagens) && p.imagens.length ? p.imagens.filter(Boolean) : [p.imagem || `images/${p.id}.jpg`];
-      const imageUrl = imagens[0] || `images/${p.id}.jpg`;
+      const imageUrl = imagens.reduce((best, url) => {
+        const score = url.match(/-(\d+)-0\./);
+        const current = best.match(/-(\d+)-0\./);
+        const nextScore = score ? Number(score[1]) : 0;
+        const currentScore = current ? Number(current[1]) : 0;
+        return nextScore > currentScore ? url : best;
+      }, imagens[0] || `images/${p.id}.jpg`);
       const sizeChips = p.tamanhos.map(t =>
         `<button class="size-chip ${t===tamSel?'selected':''}" data-id="${p.id}" data-tam="${t}">${t}</button>`
       ).join('');
