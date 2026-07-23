@@ -3718,7 +3718,12 @@
     const lista = PRODUTOS.filter(p => filtro==="Todas" || p.liga===filtro);
     grid.innerHTML = lista.map(p => {
       const tamSel = selecionados[p.id] || p.tamanhos[0];
-      const imagens = Array.isArray(p.imagens) && p.imagens.length ? p.imagens.slice(0, 2) : [p.imagem || `images/${p.id}.jpg`];
+      const rawImages = Array.isArray(p.imagens) && p.imagens.length ? p.imagens : [p.imagem || `images/${p.id}.jpg`];
+      const uniqueImages = [...new Set(rawImages.filter(Boolean))];
+      if (uniqueImages.length === 1 && p.imagem && uniqueImages[0] !== p.imagem) {
+        uniqueImages.push(p.imagem);
+      }
+      const imagens = uniqueImages.slice(0, 2);
       const imageIndex = selectedImage[p.id] ?? 0;
       const safeIndex = Math.min(imageIndex, imagens.length - 1);
       const imageUrl = imagens[safeIndex];
